@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+}
+
+
+group 'com.kdv'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'org.testng', name: 'testng', version: '6.10'
+   // testCompile fileTree('lib')
+
+}
+
+
+test { //this is the gradle task to be executed
+    useTestNG() { //Tells Gradle to use TestNG
+        //useDefaultListeners = true // Tells TestNG to execute its default reporting structure
+        suites 'src/test/resources/suite.xml' //location of our suite.xml
+    }
+}
+    task runTestUnit1(type: Test){
+        useTestNG(){
+         // suites 'src/test/resources/suite.xml'
+         includeGroups 'Unit1'
+    }
+}
+    task runTestUnit2(type: Test){
+        useTestNG(){
+            suites 'src/test/resources/suite.xml'
+            includeGroups 'Unit2'
+        }
+    }
+
+    task runTestUnit3(type: Test){
+        useTestNG(){
+            suites 'src/test/resources/suite.xml'
+            includeGroups 'Unit3'
+        }
+    }
+
+
+
+task runFactoryTest(type: JavaExec, dependsOn: 'classes') {
+    main = 'org.testng.TestNG'
+    classpath = files("./src/test/resources",
+            project.sourceSets.main.compileClasspath,
+            project.sourceSets.test.compileClasspath,
+            project.sourceSets.main.runtimeClasspath,
+            project.sourceSets.test.runtimeClasspath)
+    args = ["-parallel",  "methods", "-threadcount", "1", "-d", "./build/test-output", "./src/test/resources/suiteForFactory.xml"]
+}
+
+

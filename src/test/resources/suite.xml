@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="default">
+    <parameter name = "number1" value="10"/>
+    <parameter name = "number2" value="6"/>
+    <parameter name="difference" value="4"/>
+    <test name="calc">
+        <classes>
+            <class name="com.kdv.CalculatorTestAddSub"/>
+            <class name="com.kdv.CalculatorTestMulDiv"/>
+            <class name="com.kdv.CalculatorTestMod"/>
+            <class name="com.kdv.CalculatorTestForFactory"/>
+        </classes>
+    </test>
+</suite>
